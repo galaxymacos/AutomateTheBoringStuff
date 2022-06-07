@@ -1,6 +1,5 @@
 import re
 
-
 # create a regex object
 phone_regex = re.compile(r'(\d\d\d)-(\d\d\d-\d\d\d\d)')
 mo = phone_regex.search('My number is 415-555-4242.')
@@ -15,13 +14,12 @@ hero_regex = re.compile(r'Batman|Tina Fey')
 mo1 = hero_regex.search('Batman and Tina Fey.')
 print(type(mo1))
 print(mo1.group())
-mo2 = hero_regex.findall('Batman and Tina Fey.')    # findall() returns a list
+mo2 = hero_regex.findall('Batman and Tina Fey.')  # findall() returns a list
 print(type(mo2))
-
 
 bat_regex = re.compile(r'Bat(man|mobile|copter|bat)')
 mo = bat_regex.search('Batmobile lost a wheel')
-print(mo.group())   # mo.group returns the full matched text
+print(mo.group())  # mo.group returns the full matched text
 print(mo.group(1))  # mo.group returns just the part of the matched text inside the first parentheses group
 
 # Optional matching a group
@@ -38,7 +36,6 @@ print(mo.group())
 mo = phone_regex.search('My number is 555-4242.')
 print(mo.group())
 
-
 greedy_ha_regex = re.compile(r'(Ha){3,5}')
 non_greedy_ha_regex = re.compile(r'(Ha){3,5}?')
 mo = greedy_ha_regex.search('HaHaHaHaHa')
@@ -47,7 +44,9 @@ mo = non_greedy_ha_regex.search('HaHaHaHaHa')
 print(mo.group())
 
 xmas_regex = re.compile(r'\d+\s\w+')
-mo = xmas_regex.findall('12 drummers, 11 pipers, 10 lords, 9 ladies, 8 maids, 7 swans, 6 geese, 5 rings, 4 birds, 3 hens, 2 doves, 1 partridge')
+mo = xmas_regex.findall(
+    '12 drummers, 11 pipers, 10 lords, 9 ladies, 8 maids, 7 swans, 6 geese, 5 rings, 4 birds, 3 hens, 2 doves, '
+    '1 partridge')
 print(mo)
 
 # Making your own character classes
@@ -63,3 +62,26 @@ print(mo)
 name_regex = re.compile(r'First Name: (.*) Last Name: (.*)')
 mo = name_regex.search('First Name: Al Last Name: Sweigart')
 print(mo.groups())
+
+# Greedy and non-greedy matching
+non_greedy_regex = re.compile(r'<.*?>')  # ? makes it non-greedy
+mo = non_greedy_regex.search('<Super-Duper> tag>')
+print(mo.group())
+greedy_regex = re.compile(r'<.*>')
+mo = greedy_regex.search('<Super-Duper> tag>')
+print(mo.group())
+
+# Matching newlines with the dot character
+non_newline_regex = re.compile('.*', re.DOTALL)
+mo = non_newline_regex.search('Serve the public trust.\nProtect the innocent.\nUphold the law.')
+print(mo.group())
+
+# Ignore case
+robot_cop = re.compile(r'robocop', re.I)
+mo = robot_cop.search('RoboCop is part')
+print(mo.group())
+
+# sub() method
+name_regex = re.compile(r'Agent \w+')
+mo = name_regex.sub('CENSORED', 'Agent Alice gave the secret documents to Agent Bob.')
+print(mo)
