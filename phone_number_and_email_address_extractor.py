@@ -79,3 +79,8 @@ strong_password_regex = re.compile(r'''(
     $
 )''', re.VERBOSE)
 print(strong_password_regex.search('unatAanasr@be1').group())
+
+strip_regex = re.compile(r'^\s*(\S+\s*\S*)\s*$')
+print(strip_regex.search(' hello world ').group(1))
+# print(strip_regex.sub(, ' hello world '))
+# print(strip_regex.sub(strip_regex.search(' hello world ')[1], ' hello world '))
