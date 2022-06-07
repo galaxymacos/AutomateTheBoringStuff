@@ -54,3 +54,28 @@ print(watanabe_regex.search('Xun Watanabe').group())
 three_words_regex = re.compile(r'''(
 (Alice|Bob|Carol)\s(eats|pets|throws)\s(apples|cats|baseballs).$)''', re.VERBOSE | re.IGNORECASE)
 print(three_words_regex.search('Alice throws apples.').group())
+
+date_regex = re.compile(r'''(
+    ^(0[1-9]|1[012])
+    -
+    ([12]\d|3[01])
+    -
+    \d{4}$
+)''', re.VERBOSE)
+print(date_regex.search('12-31-1999').group())
+
+# Regex look ahead assertion
+# A(?=B) matches A only if it is followed by B
+# A(?!B) matches A only if it is not followed by B
+# (?<=B)A matches A only if it is preceded by B
+# (?<!B)A matches A only if it is not preceded by B
+strong_password_regex = re.compile(r'''(
+    ^
+    (?=.*[A-Z])
+    (?=.*[a-z])
+    (?=.*\d)
+    (?!.*\s)
+    .{8,}
+    $
+)''', re.VERBOSE)
+print(strong_password_regex.search('unatAanasr@be1').group())
